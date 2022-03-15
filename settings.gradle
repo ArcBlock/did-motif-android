@@ -1,0 +1,21 @@
+pluginManagement {
+  repositories {
+    gradlePluginPortal()
+    google()
+    mavenCentral()
+  }
+}
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    google()
+    mavenCentral()
+    maven {
+      allowInsecureProtocol(true)
+      url "http://android-docs.arcblock.io/release"
+    }
+  }
+}
+rootProject.name = "DID-Motif"
+include ':app'
+include ':did-motif'

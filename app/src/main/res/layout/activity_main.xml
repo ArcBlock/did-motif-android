@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="false"
+    android:paddingBottom="60dp"
+    android:paddingTop="60dp"
+    >
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center_horizontal"
+      android:orientation="vertical"
+      tools:context=".MainActivity"
+      >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Motif"
+        style="@style/TextAppearance.AppCompat.Title"
+        />
+    <com.arcblock.wallet.appcommonres.view.didmotif.DIDMotif
+        android:id="@+id/motif_circle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        />
+    <RadioGroup
+        android:id="@+id/motif_rg"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+      <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Circle"
+          />
+      <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Square"
+          />
+      <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Hexagon"
+          />
+      <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Rectangle"
+          />
+
+    </RadioGroup>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="60dp"
+        android:layout_height="wrap_content"
+        android:text="Blockies Identicon"
+        style="@style/TextAppearance.AppCompat.Title"
+        />
+
+
+    <io.arcblock.did_motif.blockies.BlockiesIdenticon
+        android:id="@+id/identicon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <RadioGroup
+        android:id="@+id/identicon_rg"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+      <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Circle"
+          />
+      <RadioButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Square"
+          />
+    </RadioGroup>
+  </LinearLayout>
+</androidx.core.widget.NestedScrollView>
