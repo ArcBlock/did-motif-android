@@ -1,6 +1,11 @@
 # did-motif-android
 A android library for generating DID identicons.
 
+# Install
+
+```groovy
+implementation 'io.arcblock.did:did-motif:${version}'
+```
 
 # Usage
 
@@ -41,3 +46,25 @@ binding.identicon.setAddress(ethAddress,BlockiesIdenticon.SHAPE_SQUARE, Blockies
 the Blockies Identicon only has 2 shape: Circle and Square.
 
 <img width="218" alt="image" src="https://user-images.githubusercontent.com/4629442/158416657-d25c8d4d-9f43-4369-ad49-8ff7e6d444e1.png">
+
+
+
+#LICENSE
+```
+                Copyright [2022] [ArcBlock.io]
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+<http://www.apache.org/licenses/LICENSE-2.0>
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+
+
+
