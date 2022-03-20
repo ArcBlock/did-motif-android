@@ -49,7 +49,7 @@ the Blockies Identicon only has 2 shape: Circle and Square.
 
 
 
-#LICENSE
+# LICENSE
 ```
                 Copyright [2022] [ArcBlock.io]
 Licensed under the Apache License, Version 2.0 (the "License");
