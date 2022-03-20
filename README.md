@@ -2,7 +2,7 @@
 A android library for generating DID identicons.
 
 # Install
-
+![Maven Central](https://img.shields.io/maven-central/v/io.arcblock.did/did-motif)
 ```groovy
 implementation 'io.arcblock.did:did-motif:${version}'
 ```
