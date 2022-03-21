@@ -8,7 +8,6 @@ import com.arcblock.wallet.appcommonres.view.didmotif.DIDMotif
 import io.arcblock.did_motif.blockies.BlockiesData
 import io.arcblock.did_motif.blockies.BlockiesIdenticon
 import io.arcblock.did_motif.databinding.ActivityMainBinding
-import io.arcblock.walletkit.did.DidUtils
 
 class MainActivity : AppCompatActivity() {
   @SuppressLint("ResourceType")

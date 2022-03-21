@@ -10,7 +10,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.Nullable;
-import io.arcblock.did_motif.R;
+import io.arcblock.did.did_motif.R;
 
 /**
  * Custom view that is used to display a

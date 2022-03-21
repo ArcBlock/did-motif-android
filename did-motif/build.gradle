@@ -1,7 +1,24 @@
 plugins {
   id 'com.android.library'
   id 'org.jetbrains.kotlin.android'
+  id 'maven-publish'
+  id 'signing'
 }
+def getArtificatId = { ->
+  return "did-motif"
+}
+def getVersionName = { ->
+  return System.getenv('TAG_NAME') ?: "1.0.0"
+}
+
+group='io.arcblock.did.did_modif'
+
+def snapshotRepositoryUrl = hasProperty('SNAPSHOT_REPOSITORY_URL') ? SNAPSHOT_REPOSITORY_URL
+    : "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+
+def repositoryUsername = project.findProperty("nexus.username") ?: hasProperty('NEXUS_USERNAME') ? NEXUS_USERNAME : ""
+
+def repositoryPassword = project.findProperty("nexus.pw") ?: hasProperty('NEXUS_PASSWORD') ? NEXUS_PASSWORD : ""
 
 android {
   compileSdk 31
@@ -44,4 +61,58 @@ dependencies {
   testImplementation 'junit:junit:4.13.2'
   androidTestImplementation 'androidx.test.ext:junit:1.1.3'
   androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+}
+
+task sourceJar(type: Jar) {
+  from android.sourceSets.main.java.srcDirs
+  archiveClassifier.set("sources")
+}
+
+signing {
+  sign publishing.publications
+}
+
+publishing {
+  repositories {
+    maven {
+      url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
+//      url = uri(snapshotRepositoryUrl)
+      credentials {
+        username = repositoryUsername
+        password = repositoryPassword
+      }
+    }
+  }
+  publications {
+    maven(MavenPublication) {
+      groupId 'io.arcblock.did'
+      artifactId getArtificatId()
+      version getVersionName()
+      artifact("$buildDir/outputs/aar/${getArtificatId()}-release.aar")
+      pom {
+        name = artifactId
+        description = 'A android library for generating DID identicons.'
+        url = 'https://github.com/ArcBlock/DID-Motif-android'
+        licenses {
+          license {
+            name = 'The Apache Software License, Version 2.0'
+            url = 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        developers {
+          developer {
+            id = 'ArcBlock'
+            name = 'ArcBlock'
+            email = 'app@arcblock.io'
+          }
+        }
+        scm {
+          connection = 'scm:git:git://github.com/ArcBlock/DID-Motif-android.git'
+          developerConnection = 'scm:git:ssh://git@github.com/ArcBlock/DID-Motif-android.git'
+          url = 'https://github.com/ArcBlock/DID-Motif-android'
+        }
+
+      }
+    }
+  }
 }
