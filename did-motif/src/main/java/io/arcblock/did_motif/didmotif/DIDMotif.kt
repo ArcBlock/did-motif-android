@@ -19,10 +19,12 @@ import com.arcblock.wallet.appcommonres.view.didmotif.DIDMotif.Shape.Hexagon
 import com.arcblock.wallet.appcommonres.view.didmotif.DIDMotif.Shape.Rectangle
 import com.arcblock.wallet.appcommonres.view.didmotif.DIDMotif.Shape.Square
 import io.arcblock.did_motif.utils.Utils
+import io.arcblock.walletkit.did.RoleType
 import io.arcblock.walletkit.did.RoleType.ACCOUNT
 import io.arcblock.walletkit.did.RoleType.APPLICATION
 import io.arcblock.walletkit.did.RoleType.ASSET
 import io.arcblock.walletkit.did.RoleType.TOKEN
+import io.arcblock.walletkit.utils.address
 import kotlin.math.floor
 import kotlin.math.sqrt
 
@@ -118,7 +120,8 @@ class DIDMotif(
 
   fun startAnimation() {
     val animator: ObjectAnimator = ObjectAnimator.ofFloat(
-      this, "radio", 0f, 1f)
+      this, "radio", 0f, 1f
+    )
     animator.duration = 1000
     animator.interpolator = OvershootInterpolator()
     animator.start()
@@ -127,18 +130,15 @@ class DIDMotif(
   fun setAddress(
     address: String,
     type: Shape? = null,
-    withAnmiation: Boolean = true
+    withAnimation: Boolean = true
   ) {
-    val info = try {
+    val info = if (address.address().length < 10) {
+      randomMotif()
+    } else try {
       DIDMotifUtils.getIndexFromDID(address)
     } catch (e: Exception) {
-      e.printStackTrace()
       // 如果发生异常，随机一个组合
-      val colorIndexes = arrayListOf<Int>()
-      for (i in 0..31) {
-        colorIndexes.add(i)
-      }
-      Triple(colorIndexes.random(), totalIndex.shuffled().take(8), APPLICATION)
+      randomMotif()
     }
     if (type != null) {
       this.type = type
@@ -158,17 +158,26 @@ class DIDMotif(
       Pair(it / 8, it % 8)
     }
     coordinates.addAll(randoms)
-    if (withAnmiation) {
+    if (withAnimation) {
       startAnimation()
     } else {
       invalidate()
     }
   }
 
+  private fun randomMotif(): Triple<Int, List<Int>, RoleType> {
+    val colorIndexes = arrayListOf<Int>()
+    for (i in 0..31) {
+      colorIndexes.add(i)
+    }
+    return Triple(colorIndexes.random(), totalIndex.shuffled().take(8), APPLICATION)
+  }
+
   private fun calcBorderRadius(): Int {
     return if (mSize > Utils.dp2px(
-         80f)
-    ) Utils.dp2px( 10f) else floor(0.1 * mSize + 2).toInt()
+        80f
+      )
+    ) Utils.dp2px(10f) else floor(0.1 * mSize + 2).toInt()
   }
 
   override fun onDraw(canvas: Canvas) {
@@ -179,7 +188,8 @@ class DIDMotif(
       Square -> {
         val borderRadius = calcBorderRadius().toFloat()
         canvas.drawRoundRect(
-          0f, 0f, mSize.toFloat(), mSize.toFloat(), borderRadius, borderRadius, mPaint)
+          0f, 0f, mSize.toFloat(), mSize.toFloat(), borderRadius, borderRadius, mPaint
+        )
       }
       Rectangle -> {
         val borderRadius = calcBorderRadius().toFloat()
@@ -191,7 +201,8 @@ class DIDMotif(
           (mSize / 2f + height / 2f).toFloat(),
           borderRadius,
           borderRadius,
-          mPaint)
+          mPaint
+        )
       }
       Circle -> canvas.drawCircle(mSize / 2f, mSize / 2f, mSize / 2f, mPaint)
       Hexagon -> canvas.drawPath(getHexagonPath(mSize / 2f), mPaint)
@@ -223,13 +234,15 @@ class DIDMotif(
   ) {
     canvas.withSave {
       canvas.translate(
-        (-mSize / 2f + mSize * (x + 1) / 9f) * radio, (-mSize / 2f + mSize * (y + 1) / 9f) * radio)
+        (-mSize / 2f + mSize * (x + 1) / 9f) * radio, (-mSize / 2f + mSize * (y + 1) / 9f) * radio
+      )
       canvas.drawPath(getHexagonPath(radius), mPaint)
       mPaintPoint.color = Color.RED
     }
     if (DEBUG_MODE) {
       canvas.drawPoint(
-        mSize * (x + 1) / 9f, mSize * (y + 1) / 9f, mPaintPoint)
+        mSize * (x + 1) / 9f, mSize * (y + 1) / 9f, mPaintPoint
+      )
     }
   }
 
@@ -241,11 +254,14 @@ class DIDMotif(
     localPath.lineTo(left.toFloat(), ((top + hexagonRadius / 2f).toFloat()))
     localPath.lineTo(left.toFloat(), ((top + 1.5f * hexagonRadius).toFloat()))
     localPath.lineTo(
-      ((left + sqrt(3.0) * hexagonRadius / 2.0f).toFloat()), ((top + 2 * hexagonRadius).toFloat()))
+      ((left + sqrt(3.0) * hexagonRadius / 2.0f).toFloat()), ((top + 2 * hexagonRadius).toFloat())
+    )
     localPath.lineTo(
-      ((left + sqrt(3.0) * hexagonRadius).toFloat()), ((top + 1.5f * hexagonRadius).toFloat()))
+      ((left + sqrt(3.0) * hexagonRadius).toFloat()), ((top + 1.5f * hexagonRadius).toFloat())
+    )
     localPath.lineTo(
-      ((left + sqrt(3.0) * hexagonRadius).toFloat()), ((top + hexagonRadius / 2.0f).toFloat()))
+      ((left + sqrt(3.0) * hexagonRadius).toFloat()), ((top + hexagonRadius / 2.0f).toFloat())
+    )
     localPath.lineTo(((left + sqrt(3.0) * hexagonRadius / 2.0).toFloat()), top.toFloat())
     localPath.close()
     return localPath
