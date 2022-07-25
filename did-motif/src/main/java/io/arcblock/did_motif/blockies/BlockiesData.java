@@ -122,6 +122,6 @@ public class BlockiesData {
      * @return
      */
     public int[] getColors(){
-        return new int[]{ color, bgColor, spotColor};
+        return new int[]{ bgColor, color, spotColor};
     }
 }

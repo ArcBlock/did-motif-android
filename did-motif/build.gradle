@@ -8,7 +8,7 @@ def getArtificatId = { ->
   return "did-motif"
 }
 def getVersionName = { ->
-  return System.getenv('TAG_NAME') ?: "1.0.0"
+  return new File(rootDir.getAbsolutePath() + '/version').text.replace("\n", "") ?:System.getenv('TAG_NAME') ?: "1.0.0"
 }
 
 group='io.arcblock.did.did_modif'
@@ -54,7 +54,7 @@ android {
 
 dependencies {
   api 'io.arcblock.walletkit:walletkit:0.5.18'
-  implementation 'androidx.core:core-ktx:1.7.0'
+  implementation 'androidx.core:core-ktx:1.8.0'
   implementation 'androidx.appcompat:appcompat:1.4.1'
   implementation 'com.google.android.material:material:1.5.0'
   implementation 'com.google.guava:guava:28.2-android'

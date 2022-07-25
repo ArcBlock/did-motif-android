@@ -26,7 +26,9 @@ class MainActivity : AppCompatActivity() {
     }
     binding.motifRg.check(1)
 
-    val ethAddress = "0xF194aec2428EE59eAC33e2e1fB37A7cD7c5440A2"
+//    val ethAddress = "0xF194aec2428EE59eAC33e2e1fB37A7cD7c5440A2"
+    val ethAddress = "0x2ce271ac90acd69529f6a5340f090c336a993741"
+//    val ethAddress = "0xA370b80784bea36D0Ec6f322fD3b79520DE9F441"
     binding.identiconRg.setOnCheckedChangeListener { radioGroup, i ->
       when(i) {
         5 -> binding.identicon.setAddress(ethAddress,BlockiesIdenticon.SHAPE_CIRCLE, BlockiesData.DEFAULT_SIZE, 0f)
