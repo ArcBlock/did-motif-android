@@ -91,7 +91,7 @@ class DIDMotif(
       invalidate()
       field = value
     }
-  private lateinit var bounds: RectF
+  private var bounds: RectF = RectF(0f,0f,0f,0f)
   private val XFERMODE = PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP)
   private var type: Shape = Square
 
