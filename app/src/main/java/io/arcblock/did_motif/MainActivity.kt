@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
       }
     }
     binding.identiconRg.check(5)
-
+    val color = DIDMotif.calculateColorOfAddress(address)
+    binding.bgColor.setBackgroundColor(color)
   }
 }
