@@ -43,40 +43,6 @@ class DIDMotif(
     Hexagon
   }
 
-  private val bgColors = arrayListOf(
-    "#E94E4E",
-    "#E41115",
-    "#E96B4E",
-    "#E5502E",
-    "#E98F4E",
-    "#E57A2E",
-    "#E98F4E",
-    "#E5A82E",
-    "#DACD5D",
-    "#DAC825",
-    "#BDD13D",
-    "#C8E31C",
-    "#AEE94E",
-    "#7FD558",
-    "#52CC19",
-    "#4FC469",
-    "#59DE9C",
-    "#19CC73",
-    "#5ED9D1",
-    "#19CCC0",
-    "#4ED7E9",
-    "#19B7CC",
-    "#45ACE8",
-    "#1C97DE",
-    "#4E68E9",
-    "#2E4DE5",
-    "#7F4EE9",
-    "#682EE5",
-    "#BE65E7",
-    "#AF40E2",
-    "#DF58C2",
-    "#E94E8F",
-  )
 
   private val DEBUG_MODE = false
   private val totalIndex = arrayListOf<Int>()
@@ -131,7 +97,7 @@ class DIDMotif(
     address: String,
     type: Shape? = null,
     withAnimation: Boolean = true
-  ) {
+  ): Int {
     val info = if (address.address().length < 10) {
       randomMotif()
     } else try {
@@ -163,7 +129,9 @@ class DIDMotif(
     } else {
       invalidate()
     }
+    return bgColor
   }
+
 
   private fun randomMotif(): Triple<Int, List<Int>, RoleType> {
     val colorIndexes = arrayListOf<Int>()
@@ -265,5 +233,55 @@ class DIDMotif(
     localPath.lineTo(((left + sqrt(3.0) * hexagonRadius / 2.0).toFloat()), top.toFloat())
     localPath.close()
     return localPath
+  }
+
+
+  companion object {
+
+    private val bgColors = arrayListOf(
+      "#E94E4E",
+      "#E41115",
+      "#E96B4E",
+      "#E5502E",
+      "#E98F4E",
+      "#E57A2E",
+      "#E98F4E",
+      "#E5A82E",
+      "#DACD5D",
+      "#DAC825",
+      "#BDD13D",
+      "#C8E31C",
+      "#AEE94E",
+      "#7FD558",
+      "#52CC19",
+      "#4FC469",
+      "#59DE9C",
+      "#19CC73",
+      "#5ED9D1",
+      "#19CCC0",
+      "#4ED7E9",
+      "#19B7CC",
+      "#45ACE8",
+      "#1C97DE",
+      "#4E68E9",
+      "#2E4DE5",
+      "#7F4EE9",
+      "#682EE5",
+      "#BE65E7",
+      "#AF40E2",
+      "#DF58C2",
+      "#E94E8F",
+    )
+    fun calculateColorOfAddress(address: String) : Int {
+      val info = if (address.address().length < 10) {
+        return Color.parseColor(bgColors[0])
+      } else try {
+        DIDMotifUtils.getIndexFromDID(address)
+      } catch (e: Exception) {
+        // 如果发生异常，随机一个组合
+        return Color.parseColor(bgColors[0])
+      }
+      return Color.parseColor(bgColors[info.first])
+    }
   }
 }

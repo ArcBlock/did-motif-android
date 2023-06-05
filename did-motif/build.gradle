@@ -53,7 +53,16 @@ android {
 }
 
 dependencies {
-  api 'io.arcblock.walletkit:walletkit:0.5.18'
+//  api 'io.arcblock.walletkit:walletkit:0.5.18'
+  api('org.bitcoinj:bitcoinj-core:0.16.1') {
+    exclude group: 'com.google.protobuf'
+    exclude group: 'org.bouncycastle'
+  }
+  api('org.web3j:core:4.6.0-android')
+  api('io.arcblock.did:wallet-sdk:1.0.10') {
+    exclude group: 'org.web3j'
+    exclude group: 'org.bouncycastle'
+  }
   implementation 'androidx.core:core-ktx:1.8.0'
   implementation 'androidx.appcompat:appcompat:1.4.1'
   implementation 'com.google.android.material:material:1.5.0'
@@ -102,8 +111,6 @@ publishing {
         developers {
           developer {
             id = 'ArcBlock'
-            name = 'ArcBlock'
-            email = 'app@arcblock.io'
           }
         }
         scm {
